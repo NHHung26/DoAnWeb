@@ -4,7 +4,7 @@ import RouterCustom from "./routes/router";
 
 function App() {
   return (
-    <div className="App">
+    <div className="App text-3xl">
       <BrowserRouter>
         <RouterCustom />
       </BrowserRouter>
