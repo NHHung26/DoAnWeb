@@ -17,30 +17,30 @@ export default function Header() {
     setSearchQuery(e.target.value);
   };
 
+  const headerStyle = {
+    background: "rgba(0, 0, 0, 0)", // Adjust the alpha value for the desired transparency
+    position: "fixed",
+    top: 0,
+    left: 0,
+    right: 0,
+    zIndex: 50, // Set a higher z-index to overlay the body content
+  };
+
   return (
-    <header className="fixed shadow-md w-full h-16 px-2 md:px-4 z-50 bg-zinc-600 text-white mb-2">
+    <header
+      className=" w-full h-16 px-2 md:px-4 bg-zinc-600 text-white mb-2"
+      style={headerStyle}
+    >
       <div className="flex item-center h-full justify-between">
         <div className="flex items-center font-bold text-3xl">
-          <img className="h-16 mr-2" src="your-logo.png" alt="Logo" />
-          <h2 className="ml-2">Wine Store</h2>
+          <img
+            className="h-16 mr-2"
+            src="https://www.johnniewalker.com/media/3866/royal-warrant-logo.png?quality=75&format=webp&width=1920&upscale=false"
+            alt="Logo"
+          />
         </div>
 
         {/* Thanh tìm kiếm ở giữa */}
-        <div className="relative flex items-center justify-center">
-          <input
-            type="text"
-            placeholder=""
-            className="w-80 h-9 px-2 py-1 placeholder-gray-500 bg-zinc-700 text-white rounded-full focus:outline-none focus:bg-zinc-800"
-            value={searchQuery}
-            onChange={handleSearch}
-          />
-          <button className="absolute right-3 focus:outline-none" onClick={handleSearch}>
-            <FaSearch className="text-xl text-white" />
-          </button>
-          <button className="absolute right-3 focus:outline-none" onClick={handleSearch}>
-            <i className="fas fa-search text-xl text-white"></i>
-          </button>
-        </div>
 
         <div className="flex items-center gap-4 md:gap-7 text-white-500">
           <nav className="gap-4 md:gap-6 text-base md:text-lg hidden md:flex font-bold">
@@ -69,14 +69,20 @@ export default function Header() {
             </div>
             {isDropdownOpen && (
               <div className="absolute right-2 bg-white py-3 px-2 shadow drop-shadow-md flex flex-col min-w-[120px] text-center">
-                <Link to={"login"} className="whitespace-nowrap cursor-pointer px-2 md:text-lg text-gray-800">
+                <Link
+                  to={"login"}
+                  className="whitespace-nowrap cursor-pointer px-2 md:text-lg text-gray-800"
+                >
                   Login
                 </Link>
                 <nav className="text-base md:text-lg flex flex-col">
                   <Link to={"/"} className="px-2 py-1 text-gray-800">
                     Home
                   </Link>
-                  <Link to={"menu/6439561f307ca1a748b152fc"} className="px-2 py-1 text-gray-800">
+                  <Link
+                    to={"menu/6439561f307ca1a748b152fc"}
+                    className="px-2 py-1 text-gray-800"
+                  >
                     Menu
                   </Link>
                   <Link to={"about"} className="px-2 py-1 text-gray-800">

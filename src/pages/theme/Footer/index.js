@@ -1,25 +1,27 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { AiOutlinePhone, AiOutlineMail, AiOutlineClockCircle } from "react-icons/ai";
+import {
+  AiOutlinePhone,
+  AiOutlineMail,
+  AiOutlineClockCircle,
+} from "react-icons/ai";
 
 export default function Footer() {
   return (
-<<<<<<< HEAD
-    <div>
-      <div className="grid grid-cols-3 gap-5">
-        <div className=" bg-red-500">Wine Store</div>
-        <div className="   bg-yellow-300">Wine Store</div>
-        <div className="  bg-purple-500">Wine Store</div>
-=======
-    <div className="bg-gray-800 text-white mt-5 py-5">
+    <div className=" bg-slate-400 text-white mt-5 py-5 bottom-0">
       <div className="container px-4 mx-auto lg:flex lg:justify-between">
         <div className="lg:w-1/3">
           <Link to="/" className="flex items-center">
-            <img className="h-16 mr-2" src="your-logo.png" alt="Logo" />
+            <img
+              className="h-16 mr-2"
+              src="https://www.johnniewalker.com/media/3866/royal-warrant-logo.png?quality=75&format=webp&width=1920&upscale=false"
+              alt="Logo"
+            />
             <span className="text-2xl font-semibold">Wine Store</span>
           </Link>
           <p className="mt-2 text-sm">
-            We serve the most exquisite pastries and bread in town. Come visit us!
+            We serve the most exquisite pastries and bread in town. Come visit
+            us!
           </p>
           <div className="mt-2 flex items-center text-sm">
             <AiOutlinePhone className="text-xl mr-1" />
@@ -37,16 +39,32 @@ export default function Footer() {
         <div className="lg:w-1/3 mt-5 lg:mt-0">
           <h3 className="text-lg font-medium">Quick Links</h3>
           <nav className="mt-2 text-sm">
-            <Link to="/" className="block py-1 hover:underline hover:text-red-500" activeclassname="underline">
+            <Link
+              to="/"
+              className="block py-1 hover:underline hover:text-red-500"
+              activeclassname="underline"
+            >
               Home
             </Link>
-            <Link to="/menu" className="block py-1 hover:underline  hover:text-red-500" activeclassname="underline">
+            <Link
+              to="/menu"
+              className="block py-1 hover:underline  hover:text-red-500"
+              activeclassname="underline"
+            >
               Menu
             </Link>
-            <Link to="/about" className="block py-1 hover:underline  hover:text-red-500" activeclassname="underline">
+            <Link
+              to="/about"
+              className="block py-1 hover:underline  hover:text-red-500"
+              activeclassname="underline"
+            >
               About
             </Link>
-            <Link to="/contact" className="block py-1 hover:underline  hover:text-red-500" activeclassname="underline">
+            <Link
+              to="/contact"
+              className="block py-1 hover:underline  hover:text-red-500"
+              activeclassname="underline"
+            >
               Contact
             </Link>
           </nav>
@@ -65,7 +83,6 @@ export default function Footer() {
             </button>
           </form>
         </div>
->>>>>>> 6d30dc4744ebd6db6e561061a3c69e2fe316e9cd
       </div>
     </div>
   );
