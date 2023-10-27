@@ -1,37 +1,45 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { BsThreeDotsVertical } from "react-icons/bs";
 import { Link } from "react-router-dom";
-import { FaSearch } from "react-icons/fa";
-import { HiOutlineUserCircle } from "react-icons/hi";
 import { BsFillCartFill } from "react-icons/bs";
 
 export default function Header() {
+  const [prevScrollPos, setPrevScrollPos] = useState(0);
+  const [visible, setVisible] = useState(true);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
-  const [searchQuery, setSearchQuery] = useState("");
+
+  const handleScroll = () => {
+    const currentScrollPos = window.pageYOffset;
+
+    if (currentScrollPos > prevScrollPos) {
+      setVisible(false); // Cuộn xuống, ẩn header
+    } else {
+      setVisible(true); // Cuộn lên, hiện header
+    }
+
+    setPrevScrollPos(currentScrollPos);
+  };
 
   const toggleDropdown = () => {
     setIsDropdownOpen(!isDropdownOpen);
   };
 
-  const handleSearch = (e) => {
-    setSearchQuery(e.target.value);
-  };
+  useEffect(() => {
+    window.addEventListener("scroll", handleScroll);
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, [prevScrollPos, visible]);
 
-  const headerStyle = {
-    background: "rgba(0, 0, 0, 0)", // Adjust the alpha value for the desired transparency
-    position: "fixed",
-    top: 0,
-    left: 0,
-    right: 0,
-    zIndex: 50, // Set a higher z-index to overlay the body content
+  const text = {
+    fontFamily: "'Cinzel', 'Lato', arial, sans-serif",
   };
-
   return (
-    <header
-      className=" w-full h-16 px-2 md:px-4 bg-zinc-600 text-white mb-2"
-      style={headerStyle}
+    <header style={text}
+      className={`fixed top-0 w-full z-50 bg-transparent h-16 px-2 md:px-4 bg-zinc-600 text-black mb-2 ${visible ? "" : "transform -translate-y-16 opacity-0"
+        } transition-transform duration-300 ease-in-out`}
     >
-      <div className="flex item-center h-full justify-between">
+      <div className="flex items-center h-full justify-between">
         <div className="flex items-center font-bold text-3xl">
           <img
             className="h-16 mr-2"
@@ -39,17 +47,14 @@ export default function Header() {
             alt="Logo"
           />
         </div>
-
-        {/* Thanh tìm kiếm ở giữa */}
-
         <div className="flex items-center gap-4 md:gap-7 text-white-500">
-          <nav className="gap-4 md:gap-6 text-base md:text-lg hidden md:flex font-bold">
-            <Link to={"/"}>Home</Link>
-            <Link to={"menu/6439561f307ca1a748b152fc"}>Menu</Link>
-            <Link to={"about"}>About</Link>
-            <Link to={"contact"}>Contact</Link>
+          <nav className="gap-4 md:gap-6 text-base md:text-lg hidden md:flex font-thin">
+
+            <Link to={"/menu/6439561f307ca1a748b152fc"}>Product</Link>
+            <Link to={"/about"}>About</Link>
+            <Link to={"/contact"}>Avatar</Link>
           </nav>
-          <div className="text-2xl relative">
+          <div className="text-2xl relative font-thin">
             <Link to="cart">
               <BsFillCartFill className="cursor-pointer" />
             </Link>
@@ -57,14 +62,10 @@ export default function Header() {
               5 {/* Số lượng sản phẩm trong giỏ hàng */}
             </div>
           </div>
-
-          <div className="cursor-pointer relative">
-            <div className="text-3xl w-10 h-10 rounded-full overflow-hidden">
+          <div className="group cursor-pointer relative" onMouseEnter={toggleDropdown}>
+            <div className="text-3xl w-10 h-10 rounded-full font-thin overflow-hidden">
               <div>
-                <BsThreeDotsVertical
-                  className="cursor-pointer"
-                  onClick={toggleDropdown}
-                />
+                <BsThreeDotsVertical className="cursor-pointer" />
               </div>
             </div>
             {isDropdownOpen && (
@@ -76,19 +77,17 @@ export default function Header() {
                   Login
                 </Link>
                 <nav className="text-base md:text-lg flex flex-col">
-                  <Link to={"/"} className="px-2 py-1 text-gray-800">
-                    Home
-                  </Link>
+
                   <Link
-                    to={"menu/6439561f307ca1a748b152fc"}
+                    to={"/menu/6439561f307ca1a748b152fc"}
                     className="px-2 py-1 text-gray-800"
                   >
                     Menu
                   </Link>
-                  <Link to={"about"} className="px-2 py-1 text-gray-800">
+                  <Link to={"/about"} className="px-2 py-1 text-gray-800">
                     About
                   </Link>
-                  <Link to={"contact"} className="px-2 py-1 text-gray-800">
+                  <Link to={"/contact"} className="px-2 py-1 text-gray-800">
                     Contact
                   </Link>
                 </nav>

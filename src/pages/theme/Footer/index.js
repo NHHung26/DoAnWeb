@@ -8,8 +8,8 @@ import {
 
 export default function Footer() {
   return (
-    <div className=" bg-slate-400 text-white mt-5 py-5 bottom-0">
-      <div className="container px-4 mx-auto lg:flex lg:justify-between">
+    <div className=" bg-slate-400 text-black mt-5 py-5 bottom-0 bg-transparent border-t  border-black shadow-md">
+      <div className="container px-4 mx-auto lg:flex lg:justify-between ">
         <div className="lg:w-1/3">
           <Link to="/" className="flex items-center">
             <img
