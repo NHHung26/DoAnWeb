@@ -6,6 +6,8 @@ import DichVu from "../pages/DichVu/index";
 import Products from "../pages/Products/index";
 import Cart from "../pages/Cart/index";
 import ProductDetail from "../pages/ProductDetail/index";
+import LoginPage from "../pages/Auth/Login";
+import AboutPage from "../pages/AboutPage";
 
 const RenderUserRouter = () => {
   const userRouter = [
@@ -28,6 +30,14 @@ const RenderUserRouter = () => {
     {
       path: ROUTERS.USER.ProductDetail,
       component: <ProductDetail />,
+    },
+    {
+      path: ROUTERS.USER.LoginPage,
+      component: <LoginPage />,
+    },
+    {
+      path: ROUTERS.USER.AboutPage,
+      component: <AboutPage />,
     },
   ];
   return (

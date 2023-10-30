@@ -2,6 +2,8 @@ import React, { useState, useEffect } from "react";
 import { BsThreeDotsVertical } from "react-icons/bs";
 import { Link } from "react-router-dom";
 import { BsFillCartFill } from "react-icons/bs";
+import { IoMdSearch } from "react-icons/io";
+import { RxAvatar } from "react-icons/rx"
 
 export default function Header() {
   const [prevScrollPos, setPrevScrollPos] = useState(0);
@@ -34,9 +36,11 @@ export default function Header() {
   const text = {
     fontFamily: "'Cinzel', 'Lato', arial, sans-serif",
   };
+
   return (
-    <header style={text}
-      className={`fixed top-0 w-full z-50 bg-transparent h-16 px-2 md:px-4 bg-zinc-600 text-black mb-2 ${visible ? "" : "transform -translate-y-16 opacity-0"
+    <header
+      style={text}
+      className={` fixed top-0 w-full z-50 bg-opacity-25 h-16 px-2 md:px-4 bg-zinc-500 text-black mb-2 ${visible ? "" : "transform -translate-y-16 opacity-0"
         } transition-transform duration-300 ease-in-out`}
     >
       <div className="flex items-center h-full justify-between">
@@ -47,12 +51,23 @@ export default function Header() {
             alt="Logo"
           />
         </div>
-        <div className="flex items-center gap-4 md:gap-7 text-white-500">
-          <nav className="gap-4 md:gap-6 text-base md:text-lg hidden md:flex font-thin">
+        {/* Search Bar (To the left) */}
 
+        <div className="flex items-center gap-4 md:gap-7 text-black ">
+          <div className="flex items-center justify-end ">
+            <input
+              type="text"
+              placeholder="Search..."
+              className="bg-transparent border-b border-white-500 focus:outline-none text-white-500 text-base md:text-lg w-full"
+            />
+            <button className="ml-2 text-white-500 text-3xl">
+              <IoMdSearch />
+            </button>
+          </div>
+          <nav className="gap-4 md:gap-6 text-base md:text-lg hidden md:flex font-thin">
             <Link to={"/menu/6439561f307ca1a748b152fc"}>Product</Link>
             <Link to={"/about"}>About</Link>
-            <Link to={"/contact"}>Avatar</Link>
+            <Link className="text-3xl" to={"/contact"}><RxAvatar /></Link>
           </nav>
           <div className="text-2xl relative font-thin">
             <Link to="cart">
@@ -70,18 +85,11 @@ export default function Header() {
             </div>
             {isDropdownOpen && (
               <div className="absolute right-2 bg-white py-3 px-2 shadow drop-shadow-md flex flex-col min-w-[120px] text-center">
-                <Link
-                  to={"login"}
-                  className="whitespace-nowrap cursor-pointer px-2 md:text-lg text-gray-800"
-                >
+                <Link to={"login"} className="whitespace-nowrap cursor-pointer px-2 md:text-lg text-gray-800">
                   Login
                 </Link>
                 <nav className="text-base md:text-lg flex flex-col">
-
-                  <Link
-                    to={"/menu/6439561f307ca1a748b152fc"}
-                    className="px-2 py-1 text-gray-800"
-                  >
+                  <Link to={"/menu/6439561f307ca1a748b152fc"} className="px-2 py-1 text-gray-800">
                     Menu
                   </Link>
                   <Link to={"/about"} className="px-2 py-1 text-gray-800">
