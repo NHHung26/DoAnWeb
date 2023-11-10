@@ -8,6 +8,7 @@ import Cart from "../pages/Cart/index";
 import ProductDetail from "../pages/ProductDetail/index";
 import LoginPage from "../pages/Auth/Login";
 import AboutPage from "../pages/AboutPage";
+import SignUpPage from "../pages/Auth/Signup";
 
 const RenderUserRouter = () => {
   const userRouter = [
@@ -34,6 +35,10 @@ const RenderUserRouter = () => {
     {
       path: ROUTERS.USER.LoginPage,
       component: <LoginPage />,
+    },
+    {
+      path: ROUTERS.USER.SignUpPage,
+      component: <SignUpPage />,
     },
     {
       path: ROUTERS.USER.AboutPage,
