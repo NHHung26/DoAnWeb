@@ -5,5 +5,8 @@ export const ROUTERS = {
     Products: "products",
     Cart: "cart",
     ProductDetail: "productdetail",
+    LoginPage: "login",
+    SignUpPage: "signup",
+    AboutPage: "about",
   },
 };
