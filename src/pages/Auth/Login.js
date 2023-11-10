@@ -6,21 +6,38 @@ import { Navigate } from "react-router-dom";
 const LoginPage = () => {
     const [username, setusername] = useState("");
     const [password, setPassword] = useState("");
+    const [errorMessage, setErrorMessage] = useState("");
+    const [isLoggedIn, setIsLoggedIn] = useState(false);
 
     const handelLogin = async (event) => {
         event.preventDefault();
         try {
-            await axios.post('/login', { username, password });
+            // Gọi API đăng nhập từ backend
+            await axios.post('http://localhost:8000/api/login', { username, password });
+
+            // Nếu thành công, đặt trạng thái đã đăng nhập
+            setIsLoggedIn(true);
+
+            // Đặt lại trạng thái đăng nhập và mật khẩu
             setusername("");
             setPassword("");
-            // Redirect to another page if login is successful
-            // Replace 'YourRedirectPath' with the path you want to redirect to
-            // Example: history.push('/dashboard');
-            // or use <Navigate to="/dashboard" /> if using React Router
-        } catch (e) {
-            console.log(e);
+        } catch (error) {
+            // Xử lý lỗi từ API
+            console.log(error);
+
+            // Hiển thị thông báo lỗi
+            if (error.response && error.response.data && error.response.data.message) {
+                setErrorMessage(error.response.data.message);
+            } else {
+                setErrorMessage("Đã có lỗi xảy ra khi đăng nhập");
+            }
         }
     };
+
+    if (isLoggedIn) {
+        // Chuyển hướng đến trang nào đó sau khi đăng nhập thành công
+        return <Navigate to="/products" />;
+    }
 
     return (
         <div className="min-h-screen  flex justify-end items-center"
@@ -61,10 +78,14 @@ const LoginPage = () => {
                             Sign In
                         </button>
                     </div>
+                    {errorMessage && (
+                        <div className="mt-4 text-red-500 text-sm">{errorMessage}</div>
+                    )}
                     <p className="text-center mt-4">
                         Forgot <a href="#" className="text-blue-600">password?</a>
                     </p>
                 </form>
+
             </div>
         </div>
     );

@@ -1,4 +1,3 @@
-
 import React, { useState } from "react";
 import axios from "../../api/axios";
 import { Navigate } from "react-router-dom";
@@ -8,12 +7,18 @@ const SignUpPage = () => {
     const [password, setPassword] = useState("");
     const [email, setemail] = useState("");
     const [reenterPassword, setreenterPassword] = useState("");
+    const [errorMessage, setErrorMessage] = useState("");
+    const [isRegistered, setIsRegistered] = useState(false);
 
     const handelSignup = async (event) => {
         event.preventDefault();
+
+        // Reset error message
+        setErrorMessage("");
+
         if (password !== reenterPassword) {
             // Handle password mismatch
-            console.log("Passwords do not match");
+            setErrorMessage("Passwords do not match");
             return;
         }
 
@@ -24,9 +29,10 @@ const SignUpPage = () => {
             email,
             role,
         });
+
         try {
             // Gọi API từ backend
-            const response = await axios.post('http://localhost:8000/api/users/register', {
+            const response = await axios.post('http://localhost:8000/api/register', {
                 username,
                 password,
                 email,
@@ -40,14 +46,24 @@ const SignUpPage = () => {
             // Xử lý kết quả từ API nếu cần
             console.log(response.data);
 
-            // Điều hướng đến trang khác nếu đăng ký thành công
-            // Thay 'YourRedirectPath' bằng đường dẫn bạn muốn chuyển hướng đến
-            // Ví dụ: history.push('/dashboard');
-            // hoặc sử dụng <Navigate to="/dashboard" /> nếu sử dụng React Router
+            // Đặt trạng thái đã đăng ký thành công
+            setIsRegistered(true);
         } catch (error) {
+            // Xử lý lỗi từ API
             console.log(error);
+
+            if (error.response && error.response.data && error.response.data.message) {
+                setErrorMessage(error.response.data.message);
+            } else {
+                setErrorMessage("Đã có lỗi xảy ra khi đăng ký");
+            }
         }
     };
+
+    if (isRegistered) {
+        // Chuyển hướng đến trang đăng nhập nếu đăng ký thành công
+        return <Navigate to="/login" />;
+    }
 
     return (
         <div className="min-h-screen  flex justify-end items-center"
@@ -57,26 +73,26 @@ const SignUpPage = () => {
                 <h3 className="text-2xl font-semibold text-center">Sign Up</h3>
                 <form className="mt-6" onSubmit={handelSignup}>
                     <div className="mb-4">
-                        <label className="block text-black  text-l font-semibold mb-2">
+                        <label className="block text-black text-l font-semibold mb-2">
                             Username
                         </label>
                         <input
                             type="username"
                             value={username}
                             onChange={(e) => setusername(e.target.value)}
-                            className="w-full border-b rounded py-2 px-3 text-black  focus:outline-blue-400"
+                            className="w-full border-b rounded py-2 px-3 text-black focus:outline-blue-400"
                             placeholder="username "
                         />
                     </div>
                     <div className="mb-4">
-                        <label className="block text-black  text-l font-semibold mb-2">
+                        <label className="block text-black text-l font-semibold mb-2">
                             Email
                         </label>
                         <input
                             type="username"
                             value={email}
                             onChange={(e) => setemail(e.target.value)}
-                            className="w-full border-b rounded py-2 px-3 text-black  focus:outline-blue-400"
+                            className="w-full border-b rounded py-2 px-3 text-black focus:outline-blue-400"
                             placeholder="username "
                         />
                     </div>
@@ -88,19 +104,19 @@ const SignUpPage = () => {
                             type="password"
                             value={password}
                             onChange={(e) => setPassword(e.target.value)}
-                            className="w-full border rounded py-2 px-3 text-black  focus:outline-blue-400"
+                            className="w-full border rounded py-2 px-3 text-black focus:outline-blue-400"
                             placeholder="Password"
                         />
                     </div>
                     <div className="mb-4">
-                        <label className="block text-black  text-l font-semibold mb-2">
+                        <label className="block text-black text-l font-semibold mb-2">
                             Re-enter Password
                         </label>
                         <input
                             type="password"
                             value={reenterPassword}
                             onChange={(e) => setreenterPassword(e.target.value)}
-                            className="w-full border rounded py-2 px-3 text-black  focus:outline-blue-400 "
+                            className="w-full border rounded py-2 px-3 text-black focus:outline-blue-400 "
                             placeholder="Re-enter Password"
                         />
                     </div>
@@ -112,7 +128,9 @@ const SignUpPage = () => {
                             Sign Up
                         </button>
                     </div>
-                    {/* ... rest of your code ... */}
+                    {errorMessage && (
+                        <div className="mt-4 text-red-500 text-sm">{errorMessage}</div>
+                    )}
                 </form>
             </div>
         </div>
