@@ -26,7 +26,7 @@ const RenderUserRouter = () => {
       component: <Cart />,
     },
     {
-      path: ROUTERS.USER.ProductDetail,
+      path: `products/${ROUTERS.USER.ProductDetail}/:id`,
       component: <ProductDetail />,
     },
   ];

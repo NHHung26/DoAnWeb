@@ -69,7 +69,7 @@ export default function HomePage() {
         </div>
         <div>
           <img
-            src="https://images.pexels.com/photos/1835743/pexels-photo-1835743.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2"
+            src="https://images.pexels.com/photos/4021976/pexels-photo-4021976.jpeg?auto=compress&cs=tinysrgb&w=1600"
             width={"100%"}
             style={contentStyle}
           />
