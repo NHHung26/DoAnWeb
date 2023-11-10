@@ -3,7 +3,7 @@ import { BsThreeDotsVertical } from "react-icons/bs";
 import { Link } from "react-router-dom";
 import { BsFillCartFill } from "react-icons/bs";
 import { IoMdSearch } from "react-icons/io";
-import { RxAvatar } from "react-icons/rx"
+import { RxAvatar } from "react-icons/rx";
 
 export default function Header() {
   const [prevScrollPos, setPrevScrollPos] = useState(0);
@@ -40,8 +40,9 @@ export default function Header() {
   return (
     <header
       style={text}
-      className={` fixed top-0 w-full z-50 bg-opacity-25 h-16 px-2 md:px-4 bg-zinc-500 text-black mb-2 ${visible ? "" : "transform -translate-y-16 opacity-0"
-        } transition-transform duration-300 ease-in-out`}
+      className={`fixed top-0 w-full z-50 bg-transparent h-16 px-2 md:px-4 bg-zinc-600 text-black mb-2 ${
+        visible ? "" : "transform -translate-y-16 opacity-0"
+      } transition-transform duration-300 ease-in-out`}
     >
       <div className="flex items-center h-full justify-between">
         <div className="flex items-center font-bold text-3xl">
@@ -65,9 +66,11 @@ export default function Header() {
             </button>
           </div>
           <nav className="gap-4 md:gap-6 text-base md:text-lg hidden md:flex font-thin">
-            <Link to={"/menu/6439561f307ca1a748b152fc"}>Product</Link>
+            <Link to={"/products"}>Product</Link>
             <Link to={"/about"}>About</Link>
-            <Link className="text-3xl" to={"/contact"}><RxAvatar /></Link>
+            <Link className="text-3xl" to={"/contact"}>
+              <RxAvatar />
+            </Link>
           </nav>
           <div className="text-2xl relative font-thin">
             <Link to="cart">
@@ -77,7 +80,10 @@ export default function Header() {
               5 {/* Số lượng sản phẩm trong giỏ hàng */}
             </div>
           </div>
-          <div className="group cursor-pointer relative" onMouseEnter={toggleDropdown}>
+          <div
+            className="group cursor-pointer relative"
+            onMouseEnter={toggleDropdown}
+          >
             <div className="text-3xl w-10 h-10 rounded-full font-thin overflow-hidden">
               <div>
                 <BsThreeDotsVertical className="cursor-pointer" />
@@ -85,11 +91,17 @@ export default function Header() {
             </div>
             {isDropdownOpen && (
               <div className="absolute right-2 bg-white py-3 px-2 shadow drop-shadow-md flex flex-col min-w-[120px] text-center">
-                <Link to={"login"} className="whitespace-nowrap cursor-pointer px-2 md:text-lg text-gray-800">
+                <Link
+                  to={"login"}
+                  className="whitespace-nowrap cursor-pointer px-2 md:text-lg text-gray-800"
+                >
                   Login
                 </Link>
                 <nav className="text-base md:text-lg flex flex-col">
-                  <Link to={"/menu/6439561f307ca1a748b152fc"} className="px-2 py-1 text-gray-800">
+                  <Link
+                    to={"/menu/6439561f307ca1a748b152fc"}
+                    className="px-2 py-1 text-gray-800"
+                  >
                     Menu
                   </Link>
                   <Link to={"/about"} className="px-2 py-1 text-gray-800">
