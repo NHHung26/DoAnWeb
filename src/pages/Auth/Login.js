@@ -1,22 +1,33 @@
 // LoginPage.js
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import axios from "../../api/axios";
 import { Navigate } from "react-router-dom";
+import { useCookies } from 'react-cookie';
 
 const LoginPage = () => {
     const [username, setusername] = useState("");
     const [password, setPassword] = useState("");
     const [errorMessage, setErrorMessage] = useState("");
     const [isLoggedIn, setIsLoggedIn] = useState(false);
+    const [cookies, setCookie] = useCookies(['token']);
+
+    useEffect(() => {
+        // Kiểm tra xem có token trong cookie hay không khi trang web được tải
+        const token = cookies.token;
+        if (token) {
+            setIsLoggedIn(true);
+        }
+    }, [cookies.token]);
 
     const handelLogin = async (event) => {
         event.preventDefault();
         try {
             // Gọi API đăng nhập từ backend
-            await axios.post('http://localhost:8000/api/login', { username, password });
+            const response = await axios.post('http://localhost:8000/api/login', { username, password });
 
-            // Nếu thành công, đặt trạng thái đã đăng nhập
+            // Nếu thành công, đặt trạng thái đã đăng nhập và lưu token vào cookie
             setIsLoggedIn(true);
+            setCookie('token', response.data.token, { path: '/' });
 
             // Đặt lại trạng thái đăng nhập và mật khẩu
             setusername("");
@@ -38,6 +49,7 @@ const LoginPage = () => {
         // Chuyển hướng đến trang nào đó sau khi đăng nhập thành công
         return <Navigate to="/products" />;
     }
+
 
     return (
         <div className="min-h-screen  flex justify-end items-center"
