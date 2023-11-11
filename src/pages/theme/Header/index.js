@@ -40,9 +40,8 @@ export default function Header() {
   return (
     <header
       style={text}
-      className={`fixed top-0 w-full z-50 bg-transparent h-16 px-2 md:px-4 bg-zinc-600 text-black mb-2 ${
-        visible ? "" : "transform -translate-y-16 opacity-0"
-      } transition-transform duration-300 ease-in-out`}
+      className={`fixed top-0 w-full z-50 bg-transparent h-16 px-2 md:px-4 bg-zinc-600 text-black mb-2 ${visible ? "" : "transform -translate-y-16 opacity-0"
+        } transition-transform duration-300 ease-in-out`}
     >
       <div className="flex items-center h-full justify-between">
         <div className="flex items-center font-bold text-3xl">
@@ -90,24 +89,24 @@ export default function Header() {
               </div>
             </div>
             {isDropdownOpen && (
-              <div className="absolute right-2 bg-white py-3 px-2 shadow drop-shadow-md flex flex-col min-w-[120px] text-center">
+              <div className="absolute right-2 bg-transparent py-3 px-2 shadow drop-shadow-md flex flex-col min-w-[120px] text-center">
                 <Link
                   to={"login"}
-                  className="whitespace-nowrap cursor-pointer px-2 md:text-lg text-gray-800"
+                  className="whitespace-nowrap cursor-pointer px-2 md:text-lg text-gray-800 hover:text-red-500 font-bold"
                 >
                   Login
                 </Link>
-                <nav className="text-base md:text-lg flex flex-col">
+                <nav className="text-base md:text-lg flex flex-col ">
                   <Link
-                    to={"/menu/6439561f307ca1a748b152fc"}
-                    className="px-2 py-1 text-gray-800"
+                    to={"/products"}
+                    className="px-2 py-1 text-gray-800  hover:text-red-500 font-bold"
                   >
-                    Menu
+                    Product
                   </Link>
-                  <Link to={"/about"} className="px-2 py-1 text-gray-800">
+                  <Link to={"/about"} className="px-2 py-1 text-gray-800  hover:text-red-500 font-bold">
                     About
                   </Link>
-                  <Link to={"/contact"} className="px-2 py-1 text-gray-800">
+                  <Link to={"/contact"} className="px-2 py-1 text-gray-800  hover:text-red-500 font-bold">
                     Contact
                   </Link>
                 </nav>
