@@ -145,6 +145,9 @@ const SignUpPage = () => {
                     {errorMessage && (
                         <div className="mt-4 text-red-500 text-sm">{errorMessage}</div>
                     )}
+                    <p className="text-center mt-4">
+                        Have an account <a href="login" className="text-blue-600">?</a>
+                    </p>
                 </form>
             </div>
         </div>
