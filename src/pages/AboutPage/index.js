@@ -5,7 +5,7 @@ import { FaPhone, FaEnvelope, FaMapMarker, FaInstagram, FaFacebook } from 'react
 
 export default function AboutPage() {
     return (
-        <div className="bg-white min-h-screen py-8 ">
+        <div className="bg-white min-h-screen py-16 ">
 
             <div className="container mx-auto p-4 w-3/5 mt-3">
                 <div className="flex items-center">

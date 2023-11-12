@@ -9,6 +9,7 @@ import ProductDetail from "../pages/ProductDetail/index";
 import LoginPage from "../pages/Auth/Login";
 import AboutPage from "../pages/AboutPage";
 import SignUpPage from "../pages/Auth/Signup";
+import UpdateUser from "../pages/user";
 
 const RenderUserRouter = () => {
   const userRouter = [
@@ -43,6 +44,10 @@ const RenderUserRouter = () => {
     {
       path: ROUTERS.USER.AboutPage,
       component: <AboutPage />,
+    },
+    {
+      path: ROUTERS.USER.UpdateUser,
+      component: <UpdateUser />,
     },
   ];
   return (
