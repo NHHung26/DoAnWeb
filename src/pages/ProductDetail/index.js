@@ -6,6 +6,7 @@ import "../ProductDetail/style.css";
 export default function ProductDetail() {
   const { id } = useParams();
   const [product, setProduct] = useState(null);
+  const [quantity, setQuantity] = useState(1);
 
   useEffect(() => {
     const fetchProductDetails = async () => {
@@ -23,16 +24,14 @@ export default function ProductDetail() {
   if (!product) {
     return <div>Loading...</div>;
   }
+
   const lineStyle = {
     width: "66.666667%",
     borderTop: "1px solid #000",
     position: "relative",
     margin: "0 auto",
   };
-  const anh = {
-    height: "700px",
-    margin: "270px auto 0px auto",
-  };
+
   const textStyle = {
     position: "absolute",
     left: "50%",
@@ -43,6 +42,12 @@ export default function ProductDetail() {
     zIndex: 1,
     fontFamily: "'Cinzel', 'Lato', arial, sans-serif",
   };
+
+  const handleQuantityChange = (value) => {
+    // Thay đổi giá trị số lượng
+    setQuantity((prevQuantity) => Math.max(1, prevQuantity + value));
+  };
+
   return (
     <div className=" mt-16">
       <div className=" mt-28 ">
@@ -58,6 +63,15 @@ export default function ProductDetail() {
             <div className="content">
               <h1 className="name">{product.name_product}</h1>
               <div className="price">{product.gia}$</div>
+              <div className="quantity">
+                <button onClick={() => handleQuantityChange(-1)}>-</button>
+                <input
+                  type="number"
+                  value={quantity}
+                  onChange={(e) => setQuantity(Math.max(1, e.target.value))}
+                />
+                <button onClick={() => handleQuantityChange(1)}>+</button>
+              </div>
               <div className="buttons">
                 <button>Check Out</button>
                 <button>

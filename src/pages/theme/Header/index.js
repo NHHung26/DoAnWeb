@@ -98,10 +98,7 @@ export default function Header() {
                   Login
                 </Link>
                 <nav className="text-base md:text-lg flex flex-col">
-                  <Link
-                    to={"/menu/6439561f307ca1a748b152fc"}
-                    className="px-2 py-1 text-gray-800"
-                  >
+                  <Link to={"/product"} className="px-2 py-1 text-gray-800">
                     Menu
                   </Link>
                   <Link to={"/about"} className="px-2 py-1 text-gray-800">
