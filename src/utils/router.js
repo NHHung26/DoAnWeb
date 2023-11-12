@@ -8,5 +8,6 @@ export const ROUTERS = {
     LoginPage: "login",
     SignUpPage: "signup",
     AboutPage: "about",
+    UpdateUser: 'user',
   },
 };
