@@ -54,17 +54,19 @@ export default function Header() {
   return (
     <header
       style={text}
-      className={`fixed top-0 w-full z-50 bg-transparent h-16 px-2 md:px-4 bg-zinc-600 text-black mb-2 ${
+      className={` fixed top-0 w-full z-50 bg-transparent h-16 px-2 md:px-4 shadow-md  bg-zinc-200 text-black mb-2 ${
         visible ? "" : "transform -translate-y-16 opacity-0"
       } transition-transform duration-300 ease-in-out`}
     >
       <div className="flex items-center h-full justify-between">
         <div className="flex items-center font-bold text-3xl">
-          <img
-            className="h-16 mr-2"
-            src="https://www.johnniewalker.com/media/3866/royal-warrant-logo.png?quality=75&format=webp&width=1920&upscale=false"
-            alt="Logo"
-          />
+          <Link to={"/"}>
+            <img
+              className="h-16 mr-2"
+              src="https://www.johnniewalker.com/media/3866/royal-warrant-logo.png?quality=75&format=webp&width=1920&upscale=false"
+              alt="Logo"
+            />
+          </Link>
         </div>
         {/* Search Bar (To the left) */}
 
@@ -90,7 +92,7 @@ export default function Header() {
                 {userData.fullname}
               </p>
             ) : (
-              <Link className="text-3xl" to={"/contact"}>
+              <Link className="text-3xl" to={"/user"}>
                 <RxAvatar />
               </Link>
             )}
@@ -148,6 +150,12 @@ export default function Header() {
                     className="px-2 py-1 text-gray-800  hover:text-red-500 font-bold"
                   >
                     Contact
+                  </Link>
+                  <Link
+                    to={"/user"}
+                    className="px-2 py-1 text-gray-800  hover:text-red-500 font-bold"
+                  >
+                    Settings
                   </Link>
                 </nav>
               </div>
