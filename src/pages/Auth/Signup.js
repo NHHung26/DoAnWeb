@@ -5,6 +5,7 @@ import { Navigate } from "react-router-dom";
 const SignUpPage = () => {
     const [username, setusername] = useState("");
     const [password, setPassword] = useState("");
+    const [fullname, setfullname] = useState("");
     const [email, setemail] = useState("");
     const [reenterPassword, setreenterPassword] = useState("");
     const [errorMessage, setErrorMessage] = useState("");
@@ -34,6 +35,7 @@ const SignUpPage = () => {
             // Gọi API từ backend
             const response = await axios.post('http://localhost:8000/api/register', {
                 username,
+                fullname,
                 password,
                 email,
                 role,
@@ -82,6 +84,18 @@ const SignUpPage = () => {
                             onChange={(e) => setusername(e.target.value)}
                             className="w-full border-b rounded py-2 px-3 text-black focus:outline-blue-400"
                             placeholder="username "
+                        />
+                    </div>
+                    <div className="mb-4">
+                        <label className="block text-black text-l font-semibold mb-2">
+                            Full name
+                        </label>
+                        <input
+                            type="fullname"
+                            value={fullname}
+                            onChange={(e) => setfullname(e.target.value)}
+                            className="w-full border-b rounded py-2 px-3 text-black focus:outline-blue-400"
+                            placeholder="admin "
                         />
                     </div>
                     <div className="mb-4">

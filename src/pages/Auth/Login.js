@@ -1,8 +1,11 @@
 // LoginPage.js
 import React, { useState, useEffect } from "react";
+import { toast } from "react-hot-toast"
 import axios from "../../api/axios";
-import { Navigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { useCookies } from 'react-cookie';
+import { useDispatch, useSelector } from "react-redux";
+import { loginRedux } from "../../redux/userSlice";
 
 const LoginPage = () => {
     const [username, setusername] = useState("");
@@ -10,14 +13,11 @@ const LoginPage = () => {
     const [errorMessage, setErrorMessage] = useState("");
     const [isLoggedIn, setIsLoggedIn] = useState(false);
     const [cookies, setCookie] = useCookies(['token']);
+    const userData = useSelector(state => state)
+    const dispatch = useDispatch()
+    const navigate = useNavigate()
 
-    useEffect(() => {
-        // Kiểm tra xem có token trong cookie hay không khi trang web được tải
-        const token = cookies.token;
-        if (token) {
-            setIsLoggedIn(true);
-        }
-    }, [cookies.token]);
+
 
     const handelLogin = async (event) => {
         event.preventDefault();
@@ -32,6 +32,16 @@ const LoginPage = () => {
             // Đặt lại trạng thái đăng nhập và mật khẩu
             setusername("");
             setPassword("");
+            console.log(response.data);
+            ;
+
+            if (response.message = "Đăng nhập thành công") {
+                toast(response.message);
+                dispatch(loginRedux(response.data));
+                setTimeout(() => {
+                    navigate("/");
+                }, 1000);
+            }
         } catch (error) {
             // Xử lý lỗi từ API
             console.log(error);
@@ -45,10 +55,7 @@ const LoginPage = () => {
         }
     };
 
-    if (isLoggedIn) {
-        // Chuyển hướng đến trang nào đó sau khi đăng nhập thành công
-        return <Navigate to="/products" />;
-    }
+
 
 
     return (
@@ -95,6 +102,9 @@ const LoginPage = () => {
                     )}
                     <p className="text-center mt-4">
                         Forgot <a href="#" className="text-blue-600">password?</a>
+                    </p>
+                    <p className="text-center mt-4">
+                        Do not have an account <a href="signup" className="text-blue-600">Register?</a>
                     </p>
                 </form>
 
