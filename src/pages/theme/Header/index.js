@@ -4,11 +4,17 @@ import { Link } from "react-router-dom";
 import { BsFillCartFill } from "react-icons/bs";
 import { IoMdSearch } from "react-icons/io";
 import { RxAvatar } from "react-icons/rx";
+import { useDispatch, useSelector } from "react-redux";
+import { logoutRedux } from "../../../redux/userSlice";
+import { toast } from "react-hot-toast";
 
 export default function Header() {
   const [prevScrollPos, setPrevScrollPos] = useState(0);
   const [visible, setVisible] = useState(true);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+
+  const userData = useSelector((state) => state.user);
+  const dispatch = useDispatch();
 
   const handleScroll = () => {
     const currentScrollPos = window.pageYOffset;
@@ -22,8 +28,16 @@ export default function Header() {
     setPrevScrollPos(currentScrollPos);
   };
 
+  const handleLogout = () => {
+    dispatch(logoutRedux());
+    toast(" Đăng xuất thành công! See you a later!!!");
+  };
+
   const toggleDropdown = () => {
     setIsDropdownOpen(!isDropdownOpen);
+  };
+  const handleMouseLeave = () => {
+    setIsDropdownOpen(false);
   };
 
   useEffect(() => {
@@ -68,9 +82,18 @@ export default function Header() {
           <nav className="gap-4 md:gap-6 text-base md:text-lg hidden md:flex font-thin">
             <Link to={"/products"}>Product</Link>
             <Link to={"/about"}>About</Link>
-            <Link className="text-3xl" to={"/contact"}>
-              <RxAvatar />
-            </Link>
+            {userData.username ? (
+              <p
+                className="cursor-pointer hover:text-red-500 font-bold"
+                onClick={handleLogout}
+              >
+                {userData.fullname}
+              </p>
+            ) : (
+              <Link className="text-3xl" to={"/contact"}>
+                <RxAvatar />
+              </Link>
+            )}
           </nav>
           <div className="text-2xl relative font-thin">
             <Link to="cart">
@@ -83,6 +106,7 @@ export default function Header() {
           <div
             className="group cursor-pointer relative"
             onMouseEnter={toggleDropdown}
+            onMouseLeave={handleMouseLeave}
           >
             <div className="text-3xl w-10 h-10 rounded-full font-thin overflow-hidden">
               <div>
@@ -90,21 +114,39 @@ export default function Header() {
               </div>
             </div>
             {isDropdownOpen && (
-              <div className="absolute right-2 bg-white py-3 px-2 shadow drop-shadow-md flex flex-col min-w-[120px] text-center">
-                <Link
-                  to={"login"}
-                  className="whitespace-nowrap cursor-pointer px-2 md:text-lg text-gray-800"
-                >
-                  Login
-                </Link>
-                <nav className="text-base md:text-lg flex flex-col">
-                  <Link to={"/product"} className="px-2 py-1 text-gray-800">
-                    Menu
+              <div className="absolute right-2 bg-transparent py-3 px-2 shadow drop-shadow-md flex flex-col min-w-[120px] text-center">
+                {userData.username ? (
+                  <p
+                    className="cursor-pointer hover:text-red-500 font-bold"
+                    onClick={handleLogout}
+                  >
+                    Logout:({userData.fullname})
+                  </p>
+                ) : (
+                  <Link
+                    to={"login"}
+                    className="whitespace-nowrap cursor-pointer px-2  md:text-lg hover:text-red-500 font-bold"
+                  >
+                    Login
                   </Link>
-                  <Link to={"/about"} className="px-2 py-1 text-gray-800">
+                )}
+                <nav className="text-base md:text-lg flex flex-col ">
+                  <Link
+                    to={"/products"}
+                    className="px-2 py-1 text-gray-800  hover:text-red-500 font-bold"
+                  >
+                    Product
+                  </Link>
+                  <Link
+                    to={"/about"}
+                    className="px-2 py-1 text-gray-800  hover:text-red-500 font-bold"
+                  >
                     About
                   </Link>
-                  <Link to={"/contact"} className="px-2 py-1 text-gray-800">
+                  <Link
+                    to={"/contact"}
+                    className="px-2 py-1 text-gray-800  hover:text-red-500 font-bold"
+                  >
                     Contact
                   </Link>
                 </nav>

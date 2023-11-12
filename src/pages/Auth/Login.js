@@ -1,26 +1,62 @@
 // LoginPage.js
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import { toast } from "react-hot-toast"
 import axios from "../../api/axios";
-import { Navigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+import { useCookies } from 'react-cookie';
+import { useDispatch, useSelector } from "react-redux";
+import { loginRedux } from "../../redux/userSlice";
 
 const LoginPage = () => {
     const [username, setusername] = useState("");
     const [password, setPassword] = useState("");
+    const [errorMessage, setErrorMessage] = useState("");
+    const [isLoggedIn, setIsLoggedIn] = useState(false);
+    const [cookies, setCookie] = useCookies(['token']);
+    const userData = useSelector(state => state)
+    const dispatch = useDispatch()
+    const navigate = useNavigate()
+
+
 
     const handelLogin = async (event) => {
         event.preventDefault();
         try {
-            await axios.post('/login', { username, password });
+            // Gọi API đăng nhập từ backend
+            const response = await axios.post('http://localhost:8000/api/login', { username, password });
+
+            // Nếu thành công, đặt trạng thái đã đăng nhập và lưu token vào cookie
+            setIsLoggedIn(true);
+            setCookie('token', response.data.token, { path: '/' });
+
+            // Đặt lại trạng thái đăng nhập và mật khẩu
             setusername("");
             setPassword("");
-            // Redirect to another page if login is successful
-            // Replace 'YourRedirectPath' with the path you want to redirect to
-            // Example: history.push('/dashboard');
-            // or use <Navigate to="/dashboard" /> if using React Router
-        } catch (e) {
-            console.log(e);
+            console.log(response.data);
+            ;
+
+            if (response.message = "Đăng nhập thành công") {
+                toast(response.message);
+                dispatch(loginRedux(response.data));
+                setTimeout(() => {
+                    navigate("/");
+                }, 1000);
+            }
+        } catch (error) {
+            // Xử lý lỗi từ API
+            console.log(error);
+
+            // Hiển thị thông báo lỗi
+            if (error.response && error.response.data && error.response.data.message) {
+                setErrorMessage(error.response.data.message);
+            } else {
+                setErrorMessage("Đã có lỗi xảy ra khi đăng nhập");
+            }
         }
     };
+
+
+
 
     return (
         <div className="min-h-screen  flex justify-end items-center"
@@ -61,10 +97,17 @@ const LoginPage = () => {
                             Sign In
                         </button>
                     </div>
+                    {errorMessage && (
+                        <div className="mt-4 text-red-500 text-sm">{errorMessage}</div>
+                    )}
                     <p className="text-center mt-4">
                         Forgot <a href="#" className="text-blue-600">password?</a>
                     </p>
+                    <p className="text-center mt-4">
+                        Do not have an account <a href="signup" className="text-blue-600">Register?</a>
+                    </p>
                 </form>
+
             </div>
         </div>
     );
