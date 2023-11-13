@@ -1,10 +1,10 @@
 import React, { useEffect } from "react";
 
-import 'react-toastify/dist/ReactToastify.css';
+import "react-toastify/dist/ReactToastify.css";
 import { Provider, useDispatch, useSelector } from "react-redux";
-import Cookies from 'js-cookie';
-import axios from '../../../api/axios';
-import toast, { Toaster } from 'react-hot-toast';
+import Cookies from "js-cookie";
+import axios from "../../../api/axios";
+import toast, { Toaster } from "react-hot-toast";
 
 import { useNavigate } from "react-router-dom";
 import { logintoken } from "../../../redux/userSlice";
@@ -18,9 +18,8 @@ export default function MasterLayout({ children, ...props }) {
   const userToken = useSelector((state) => state.user.token);
   const navigate = useNavigate();
 
-
   useEffect(() => {
-    const token = Cookies.get('token');
+    const token = Cookies.get("token");
     console.log(token);
 
     if (token) {
@@ -37,12 +36,10 @@ export default function MasterLayout({ children, ...props }) {
             dispatch(logintoken(resData));
             console.log(res);
           } else {
-            // Xử lý lỗi ở đây, ví dụ chuyển người dùng đến trang login
-            navigate('/login');
+            navigate("/login");
           }
         } catch (error) {
           console.error(error);
-          // Xử lý lỗi ở đây, ví dụ hiển thị thông báo lỗi cho người dùng
         }
       })();
     } else {
@@ -52,14 +49,11 @@ export default function MasterLayout({ children, ...props }) {
   }, [dispatch, navigate]);
 
   return (
-
     <div {...props}>
       <Toaster />
       <Header />
       {children}
       <Footer />
-
     </div>
-
   );
 }

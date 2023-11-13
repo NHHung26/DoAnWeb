@@ -33,7 +33,7 @@ const LoginPage = () => {
       // Đặt lại trạng thái đăng nhập và mật khẩu
       setusername("");
       setPassword("");
-      console.log(response.data);
+
       if ((response.message = "Đăng nhập thành công")) {
         toast(response.message);
         dispatch(loginRedux(response.data));

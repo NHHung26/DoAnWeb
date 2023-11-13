@@ -1,13 +1,18 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { useParams } from "react-router-dom";
+import { toast } from "react-hot-toast";
 import "../ProductDetail/style.css";
 import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
+
 export default function ProductDetail() {
   const { id } = useParams();
   const [product, setProduct] = useState(null);
   const [quantity, setQuantity] = useState(1);
   const user = useSelector((state) => state.user);
+  const navigate = useNavigate();
+
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -40,7 +45,9 @@ export default function ProductDetail() {
         });
         console.log(user.id);
 
-        alert("Thêm Vào Giỏ Hàng Thành Công!!!");
+        toast("Thêm Vào Giỏ Hàng Thành Công!!!");
+        navigate('/cart')
+
       } else {
         console.error(
           "User not logged in. Please log in to add items to the cart."

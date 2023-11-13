@@ -18,13 +18,14 @@ export const userSlice = createSlice({
     initialState,
     reducers: {
         loginRedux: (state, action) => {
-            console.log(action.payload.user)
+
             //    state.user =action.payload.data
             state.token = action.payload.token
             state.id = action.payload.user.id
             state.username = action.payload.user.username
             state.fullname = action.payload.user.fullname
             state.email = action.payload.user.email
+            console.log(action.payload.user)
 
         },
         logintoken: (state, action) => {
