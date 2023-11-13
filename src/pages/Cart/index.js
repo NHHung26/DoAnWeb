@@ -1,22 +1,41 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
+import { toast } from "react-hot-toast";
+import Cookies from "js-cookie";
+import { logintoken } from "../../redux/userSlice";
+import { setDataProduct } from "../../redux/productSlice";
 export default function Cart() {
   const [data, setData] = useState([]);
   const [subtotal, setSubtotal] = useState(0);
-  const user = useSelector((state) => state.user);
   const dispatch = useDispatch();
-  const idA = user.id;
   const fetchData = async () => {
     try {
-      const response = await axios.get(`http://localhost:8000/all-cart/${idA}`);
-      const consolidatedData = consolidateQuantities(response.data);
-      setData(consolidatedData);
-      calculateSubtotal(consolidatedData);
+      const token = Cookies.get("token"); // Lấy token từ cookies
+      if (token) {
+        const res = await axios.get(`http://localhost:8000/api/users`, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
+
+        if (res.status === 200) {
+          const idA = res.data.id
+          const resData = res.data;
+          dispatch(logintoken(resData));
+
+          const response = await axios.get(`http://localhost:8000/all-cart/${idA}`);
+          const consolidatedData = consolidateQuantities(response.data);
+          setData(consolidatedData);
+          calculateSubtotal(consolidatedData);
+          dispatch(setDataProduct(response.data));
+        }
+      }
     } catch (error) {
       console.error("Error fetching data:", error);
     }
   };
+
 
   useEffect(() => {
     fetchData();
@@ -131,7 +150,7 @@ export default function Cart() {
       setSubtotal(0);
       fetchData();
 
-      alert("Đặt hàng thành công!");
+      toast("Đặt hàng thành công!");
     } catch (error) {
       console.error("Error during checkout:", error);
     }

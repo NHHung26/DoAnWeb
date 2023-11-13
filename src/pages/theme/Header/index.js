@@ -52,9 +52,8 @@ export default function Header() {
   return (
     <header
       style={text}
-      className={` fixed top-0 w-full z-50 bg-transparent h-16 px-2 md:px-4 shadow-md  bg-zinc-200 text-black mb-2 ${
-        visible ? "" : "transform -translate-y-16 opacity-0"
-      } transition-transform duration-300 ease-in-out`}
+      className={` fixed top-0 w-full z-50 bg-transparent h-16 px-2 md:px-4 shadow-md  bg-zinc-200 text-black mb-2 ${visible ? "" : "transform -translate-y-16 opacity-0"
+        } transition-transform duration-300 ease-in-out`}
     >
       <div className="flex items-center h-full justify-between">
         <div className="flex items-center font-bold text-3xl">
@@ -90,7 +89,7 @@ export default function Header() {
                 {userData.fullname}
               </p>
             ) : (
-              <Link className="text-3xl" to={"/user"}>
+              <Link className="text-3xl" to={"/login"}>
                 <RxAvatar />
               </Link>
             )}
