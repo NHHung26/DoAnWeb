@@ -7,6 +7,9 @@ const initialState = {
     token: "",
     username: "",
     id: "",
+    phone: "",
+    address: "",
+    user_id: ""
 
 }
 
@@ -34,6 +37,17 @@ export const userSlice = createSlice({
             state.email = action.payload.email
 
         },
+        update: (state, action) => {
+            console.log(action.payload)
+            //    state.user =action.payload.data
+            state.id = action.payload.id
+            state.username = action.payload.username
+            state.fullname = action.payload.fullname
+            state.email = action.payload.email
+            state.phone = action.payload.phone
+            state.address = action.payload.address
+
+        },
         logoutRedux: (state, action) => {
             state._id = ""
             state.token = ''
@@ -45,7 +59,7 @@ export const userSlice = createSlice({
     }
 })
 
-export const { loginRedux, logoutRedux, logintoken } = userSlice.actions
+export const { loginRedux, logoutRedux, logintoken, update } = userSlice.actions
 
 
 export default userSlice.reducer
