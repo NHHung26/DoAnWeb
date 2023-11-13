@@ -1,16 +1,19 @@
 import React, { useState } from 'react';
 import { FiEdit } from 'react-icons/fi'; // Import biểu tượng chỉnh sửa từ react-icons
 import { Link } from 'react-router-dom';
-import { useDispatch, useSelector } from "react-redux";
-import { update } from "../../../redux/userSlice";
-
 
 const AccountSetting = () => {
-  const userData = useSelector((state) => state.user);
-  const dispatch = useDispatch();
+  const [userData, setUserData] = useState({
+    username: 'example_user',
+    fullname: "nguyen duong",
+    address: "false",
+    phone: "false",
+    email: 'user@example.com',
+    password: '********',
+  });
 
   const [isEditing, setIsEditing] = useState({
-    userusername: false,
+    username: false,
     email: false,
     password: false,
     address: false,
@@ -18,45 +21,23 @@ const AccountSetting = () => {
     fullname: false,
   });
 
-  dispatch(update({ [field]: e.target.value }));
-
-  const handleSaveAll = async () => {
-    try {
-      // Tạo một đối tượng chứa dữ liệu cần cập nhật
-      const updateduser = {
-        username: userData.username,
-        email: userData.email,
-        password: userData.password,
-        fullname: userData.fullname,
-      };
-      updateduserDetail = {
-        address: userData.address,
-        phone: userData.phone,
-      }
-
-      // Gửi yêu cầu PUT (hoặc POST) đến API để cập nhật dữ liệu
-      const response = await axios.put('http://localhost:8000/api/edit', updateduser);
-      const response1 = await axios.put('http://localhost:8000/api/edit', updateduser);
-
-      // Kiểm tra response từ API, có thể xem xét kiểm tra response.status để đảm bảo cập nhật thành công
-      if (response.status === 200) {
-        // Nếu cập nhật thành công, bạn có thể thực hiện các xử lý khác (ví dụ: cập nhật Redux store)
-        dispatch(update(updatedData));
-        setIsEditing({
-          username: false,
-          email: false,
-          password: false,
-          address: false,
-          phone: false,
-          fullname: false,
-        });
-      }
-    } catch (error) {
-      // Xử lý lỗi nếu có
-      console.error('Lỗi khi cập nhật dữ liệu:', error);
-    }
+  const handleChange = (field, e) => {
+    setUserData({ ...userData, [field]: e.target.value });
   };
 
+  const handleSaveAll = () => {
+    // Thực hiện lưu tất cả dữ liệu đã thay đổi vào backend hoặc state management tại đây
+    // Ví dụ: gửi request PUT/POST đến API hoặc cập nhật state tương ứng
+    // Sau khi lưu xong, bạn có thể đặt lại updatedData về userData
+    setIsEditing({
+      username: false,
+      email: false,
+      password: false,
+      address: false,
+      phone: false,
+      fullname: false,
+    });
+  };
 
   return (
     <div className='bg-gray-300'>

@@ -47,7 +47,7 @@ export default function MasterLayout({ children, ...props }) {
       })();
     } else {
       // Nếu không có token, chuyển người dùng đến trang login
-      navigate('/login');
+
     }
   }, [dispatch, navigate]);
 

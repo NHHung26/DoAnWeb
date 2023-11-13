@@ -111,13 +111,14 @@ const LoginPage = () => {
               password?
             </a>
           </p>
-          <p className="text-center mt-4">
-            Do not have an account{" "}
-            <a href="signup" className="text-blue-600">
-              Register?
-            </a>
-          </p>
+
         </form>
+        <p className="text-center mt-4">
+          Do not have an account{" "}
+          <a href="signup" className="text-blue-600">
+            Register?
+          </a>
+        </p>
       </div>
     </div>
   );
