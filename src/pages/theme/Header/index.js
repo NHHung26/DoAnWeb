@@ -12,10 +12,8 @@ export default function Header() {
   const [prevScrollPos, setPrevScrollPos] = useState(0);
   const [visible, setVisible] = useState(true);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
-
   const userData = useSelector((state) => state.user);
   const dispatch = useDispatch();
-
   const handleScroll = () => {
     const currentScrollPos = window.pageYOffset;
 
@@ -102,7 +100,7 @@ export default function Header() {
               <BsFillCartFill className="cursor-pointer" />
             </Link>
             <div className="absolute -top-3 -right-3 h-6 w-6 rounded-full m-0 p-0 text-sm font-bold text-center bg-red-300">
-              5 {/* Số lượng sản phẩm trong giỏ hàng */}
+              5
             </div>
           </div>
           <div

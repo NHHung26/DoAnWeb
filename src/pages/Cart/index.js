@@ -1,12 +1,15 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-
+import { useDispatch, useSelector } from "react-redux";
 export default function Cart() {
   const [data, setData] = useState([]);
   const [subtotal, setSubtotal] = useState(0);
+  const user = useSelector((state) => state.user);
+  const dispatch = useDispatch();
+  const idA = user.id;
   const fetchData = async () => {
     try {
-      const response = await axios.get("http://localhost:8000/all-cart/");
+      const response = await axios.get(`http://localhost:8000/all-cart/${idA}`);
       const consolidatedData = consolidateQuantities(response.data);
       setData(consolidatedData);
       calculateSubtotal(consolidatedData);
@@ -71,7 +74,6 @@ export default function Cart() {
   };
   const handleIncreaseQuantity = async (id) => {
     try {
-      // Gọi API để cập nhật giá trị trong bảng Cart
       const response = await axios.put(
         `http://localhost:8000/update-cart/${id}`,
         {
@@ -84,16 +86,17 @@ export default function Cart() {
           item.id === id ? { ...item, number: item.number + 1 } : item
         )
       );
-
-      calculateSubtotal(data);
     } catch (error) {
       console.error("Error updating quantity:", error);
     }
   };
 
+  useEffect(() => {
+    calculateSubtotal(data);
+  }, [data]);
+
   const handleQuantityChange = async (id, value) => {
     try {
-      // Gọi API để cập nhật giá trị trong bảng Cart
       await axios.put(`http://localhost:8000/update-cart/${id}`, {
         number: Math.max(1, value),
       });
@@ -105,6 +108,7 @@ export default function Cart() {
       );
 
       calculateSubtotal(data);
+      console.log(id);
     } catch (error) {
       console.error("Error updating quantity:", error);
     }
@@ -178,7 +182,9 @@ export default function Cart() {
                       <div className="quantity ml-10">
                         <button
                           className="btn btn-sm btn-outline-primary"
-                          onClick={() => handleDecreaseQuantity(item.id)}
+                          onClick={() =>
+                            handleDecreaseQuantity(item.id_product)
+                          }
                         >
                           -
                         </button>
@@ -194,7 +200,9 @@ export default function Cart() {
                         />
                         <button
                           className="btn btn-sm btn-outline-primary"
-                          onClick={() => handleIncreaseQuantity(item.id)}
+                          onClick={() =>
+                            handleIncreaseQuantity(item.id_product)
+                          }
                         >
                           +
                         </button>
