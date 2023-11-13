@@ -146,3 +146,29 @@ a {
     justify-content: center;
   }
 }
+/* Thêm vào file style.css */
+.quantity {
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.quantity button {
+  border: none;
+  padding: 10px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.quantity input {
+  width: 50px;
+  padding: 10px;
+  font-size: 16px;
+  text-align: center;
+  margin: 0 5px;
+}
+
+.quantity button:hover {
+  background-color: #ddd;
+}

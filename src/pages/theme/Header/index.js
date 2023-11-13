@@ -12,11 +12,8 @@ export default function Header() {
   const [prevScrollPos, setPrevScrollPos] = useState(0);
   const [visible, setVisible] = useState(true);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
-
   const userData = useSelector((state) => state.user);
   const dispatch = useDispatch();
-
-
   const handleScroll = () => {
     const currentScrollPos = window.pageYOffset;
 
@@ -55,18 +52,17 @@ export default function Header() {
   return (
     <header
       style={text}
-      className={` fixed top-0 w-full z-50 bg-transparent h-16 px-2 md:px-4 shadow-md  bg-zinc-200 text-black mb-2 ${visible ? "" : "transform -translate-y-16 opacity-0"
-        } transition-transform duration-300 ease-in-out`}
+      className={` fixed top-0 w-full z-50 bg-transparent h-16 px-2 md:px-4 shadow-md  bg-zinc-200 text-black mb-2 ${
+        visible ? "" : "transform -translate-y-16 opacity-0"
+      } transition-transform duration-300 ease-in-out`}
     >
       <div className="flex items-center h-full justify-between">
         <div className="flex items-center font-bold text-3xl">
-          <Link to={'/'}>
-
+          <Link to={"/"}>
             <img
               className="h-16 mr-2"
               src="https://www.johnniewalker.com/media/3866/royal-warrant-logo.png?quality=75&format=webp&width=1920&upscale=false"
               alt="Logo"
-
             />
           </Link>
         </div>
@@ -98,14 +94,13 @@ export default function Header() {
                 <RxAvatar />
               </Link>
             )}
-
           </nav>
           <div className="text-2xl relative font-thin">
             <Link to="cart">
               <BsFillCartFill className="cursor-pointer" />
             </Link>
             <div className="absolute -top-3 -right-3 h-6 w-6 rounded-full m-0 p-0 text-sm font-bold text-center bg-red-300">
-              5 {/* Số lượng sản phẩm trong giỏ hàng */}
+              5
             </div>
           </div>
           <div
@@ -142,13 +137,22 @@ export default function Header() {
                   >
                     Product
                   </Link>
-                  <Link to={"/about"} className="px-2 py-1 text-gray-800  hover:text-red-500 font-bold">
+                  <Link
+                    to={"/about"}
+                    className="px-2 py-1 text-gray-800  hover:text-red-500 font-bold"
+                  >
                     About
                   </Link>
-                  <Link to={"/contact"} className="px-2 py-1 text-gray-800  hover:text-red-500 font-bold">
+                  <Link
+                    to={"/contact"}
+                    className="px-2 py-1 text-gray-800  hover:text-red-500 font-bold"
+                  >
                     Contact
                   </Link>
-                  <Link to={"/user"} className="px-2 py-1 text-gray-800  hover:text-red-500 font-bold">
+                  <Link
+                    to={"/user"}
+                    className="px-2 py-1 text-gray-800  hover:text-red-500 font-bold"
+                  >
                     Settings
                   </Link>
                 </nav>
